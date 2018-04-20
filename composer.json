@@ -1,0 +1,13 @@
+{
+    "name": "irt/database",
+    "description": "IRT Database",
+    "type": "composer-plugin",
+    "license": "AAL",
+    "authors": [
+        {
+            "name": "RickyTran",
+            "email": "viettri258@gmail.com"
+        }
+    ],
+    "require": {}
+}
