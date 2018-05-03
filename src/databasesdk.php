@@ -1,11 +1,11 @@
 <?php
 
-namespace IRT;
+namespace irt;
 
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
-class Databasesdk {
+class Databases {
 
     protected $MONGODB_PATH = '/mongodb';
     
