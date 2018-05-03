@@ -5,7 +5,7 @@ namespace Database;
 //use Illuminate\Support\Facades\Auth;
 //use Carbon\Carbon;
 
-class Databases {
+class Database {
 
     protected $MONGODB_PATH = '/mongodb';
     
