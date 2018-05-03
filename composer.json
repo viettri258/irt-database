@@ -1,7 +1,6 @@
 {
     "name": "irt/database",
     "description": "IRT Database",
-    "version" : "1.0",
     "type": "php",
     "license": "AAL",
     "authors": [
