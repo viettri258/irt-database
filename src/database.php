@@ -4,8 +4,17 @@ namespace Database;
 
 //use Illuminate\Support\Facades\Auth;
 //use Carbon\Carbon;
+use Composer\Composer;
+use Composer\IO\IOInterface;
+use Composer\Plugin\PluginInterface;
 
-class Database {
+class Database implements PluginInterface 
+{
+    public function activate(Composer $composer, IOInterface $io)
+    {
+        $installer = new TemplateInstaller($io, $composer);
+        $composer->getInstallationManager()->addInstaller($installer);
+    }
 
     protected $MONGODB_PATH = '/mongodb';
     
