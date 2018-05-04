@@ -2,7 +2,7 @@
     "name": "irt/database",
     "version" : "1.1",
     "description": "IRT Database",
-    "type": "php",
+    "type": "library",
     "license": "AAL",
     "authors": [
         {
@@ -12,7 +12,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=5.3.0"
+        "php": ">=5.6.3"
     },
     "autoload": {
         "psr-4": {

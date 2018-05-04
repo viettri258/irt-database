@@ -1,21 +1,10 @@
 <?php
 
-namespace Database;
+namespace irt\database;
 
-//use Illuminate\Support\Facades\Auth;
-//use Carbon\Carbon;
-use Composer\Composer;
-use Composer\IO\IOInterface;
-use Composer\Plugin\PluginInterface;
-
-class Database implements PluginInterface 
+class SDK
 {
-    public function activate(Composer $composer, IOInterface $io)
-    {
-        $installer = new TemplateInstaller($io, $composer);
-        $composer->getInstallationManager()->addInstaller($installer);
-    }
-
+    
     protected $MONGODB_PATH = '/mongodb';
     
     public function __construct() {
@@ -47,20 +36,18 @@ class Database implements PluginInterface
             ),
         ));
         $response = curl_exec($curl);
-        $err = curl_error($curl); //Bị lỗi khi truyền
+        $err = curl_error($curl);
         curl_close($curl);
 
         if ($err) {
             return $result = array("cURL Error #:" . $err);
         } else {
-            return $result = (json_decode($response, true)); //Dữ liệu trả về là kiểu Array
-            //return $result = $response; //Test (Server xử lý bị lỗi)
+            return $result = (json_decode($response, true));
         }
     }
     
     public function getCollection(){
         $url = $this->DEV_URL . $this->MONGODB_PATH . '/getCollection';
-        //dd($url);
         $data = array(
         );
         return $this->build($url, $data);
@@ -99,7 +86,6 @@ class Database implements PluginInterface
             'skip' => $skip,
             'limited' => $limited
         );
-        //dd($data);
         return $this->build($url, $data);
     }
 
@@ -120,14 +106,6 @@ class Database implements PluginInterface
     //--------------------------------------------------- insert -------------------------------------------------------------------
     public function insert($collection, $dataArray = array()) {
         $url = $this->DEV_URL . $this->MONGODB_PATH . '/insert';
-        $me = Auth::user();
-        if ($me) { //Trường hợp dữ liệu từ bên ngoài đưa vào, muốn lưu xuống thì không cần biết ai tạo
-            $dataArray['created_by'] = (string) $me->email;
-            $dataArray['updated_by'] = (string) $me->email;
-        }
-        $dataArray['created_at'] = Carbon::now('Asia/Ho_Chi_Minh')->toIso8601String();
-        $dataArray['updated_at'] = Carbon::now('Asia/Ho_Chi_Minh')->toIso8601String();
-        $dataArray['published'] = (string) "no";
         $data = array(
             'collection' => $collection,
             'dataArray' => $dataArray
@@ -138,11 +116,6 @@ class Database implements PluginInterface
     //-------------------------------------------------- update --------------------------------------------------------------------
     public function update($collection, $documentID, $incArray = null, $setArray = null, $unsetArray = null) {
         $url = $this->DEV_URL . $this->MONGODB_PATH . '/update';
-        $me = Auth::user();
-        if ($me) {
-            $setArray['updated_by'] = (string) $me->email;
-        }
-        $setArray['updated_at'] = Carbon::now('Asia/Ho_Chi_Minh')->toIso8601String();
         $data = array(
             'collection' => $collection,
             'documentID' => $documentID,
