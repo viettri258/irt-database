@@ -10,7 +10,6 @@
             "email": "viettri258@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
         "php": ">=5.6.3"
     },
