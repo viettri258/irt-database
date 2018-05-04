@@ -1,6 +1,8 @@
 <?php
 namespace irt\database\example;
 
+require_once __DIR__ . '/../SDK.php';
+
 use irt\database\SDK;
 
 class DBO extends SDK
