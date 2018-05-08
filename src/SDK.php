@@ -43,9 +43,11 @@ class SDK
             return $result = array("cURL Error #:" . $err);
         } else {
             return $result = (json_decode($response, true));
+            //return $response;
         }
     }
     
+    //------------------------------------------------ getCollection -----------------------------------------------------------------
     public function getCollection(){
         $url = $this->DEV_URL . $this->MONGODB_PATH . '/getCollection';
         $data = array(
@@ -76,11 +78,11 @@ class SDK
     }
 
     //--------------------------------------------------- getMpDocument -------------------------------------------------------------------
-    public function getMpDocument($collection, $whereArray = array(), $fieldArray = array(), $sortArray = array(), $skip = 0, $limited = 0) {
+    public function getMpDocument($collection, $findArray = array(), $fieldArray = array(), $sortArray = array(), $skip = 0, $limited = 10) {
         $url = $this->DEV_URL . $this->MONGODB_PATH . '/getMpDocument';
         $data = array(
             'collection' => $collection,
-            'whereArray' => $whereArray,
+            'findArray' => $findArray,
             'fieldArray' => $fieldArray,
             'sortArray' => $sortArray,
             'skip' => $skip,
@@ -90,15 +92,12 @@ class SDK
     }
 
     //----------------------------------------------------- getMpDocumentInArrayId -----------------------------------------------------------------
-    public function getMpDocumentInArrayId($collection, $arrayId = array(), $fieldArray = array(), $sortArray = array(), $skip = 0, $limited = 0) {
+    public function getMpDocumentInArrayId($collection, $arrayId = array(), $fieldArray = array()) {
         $url = $this->DEV_URL . $this->MONGODB_PATH . '/getMpDocumentInArrayId';
         $data = array(
             'collection' => $collection,
             'arrayId' => $arrayId,
-            'fieldArray' => $fieldArray,
-            'sortArray' => $sortArray,
-            'skip' => $skip,
-            'limited' => $limited
+            'fieldArray' => $fieldArray
         );
         return $this->build($url, $data);
     }
@@ -127,11 +126,11 @@ class SDK
     }
 
     //------------------------------------------------- updateMpDocument ---------------------------------------------------------------------
-    public function updateMpDocument($collection, $whereArray, $incArray = null, $setArray = null, $unsetArray = null) {
+    public function updateMpDocument($collection, $findArray, $incArray = null, $setArray = null, $unsetArray = null) {
         $url = $this->DEV_URL . $this->MONGODB_PATH . '/updateMpDocument';
         $data = array(
             'collection' => $collection,
-            'whereArray' => $whereArray,
+            'findArray' => $findArray,
             'incArray' => $incArray,
             'setArray' => $setArray,
             'unsetArray' => $unsetArray
@@ -145,6 +144,16 @@ class SDK
         $data = array(
             'collection' => $collection,
             'documentID' => $documentID
+        );
+        return $this->build($url, $data);
+    }
+
+    //-------------------------------------------------- removeMpDocument --------------------------------------------------------------------
+    public function removeMpDocument($collection, $findArray) {
+        $url = $this->DEV_URL . $this->MONGODB_PATH . '/removeMpDocument';
+        $data = array(
+            'collection' => $collection,
+            'findArray' => $findArray
         );
         return $this->build($url, $data);
     }
