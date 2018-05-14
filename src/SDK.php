@@ -12,28 +12,29 @@ class SDK
 
     //-------------------------------------------------------- build --------------------------------------------------------------
     private function build($url, $data) {
-        $varArray = array(
-            'account' => array(
-                'email' => $this->DEV_EMAIL,
-                'key' => $this->DEV_KEY,
-                'database' => $this->DATABASE
-            ),
-            'data' => $data
-        );
 
-        $myvars = json_encode($varArray);
+        $dev_email = $this->DEV_EMAIL;
+        $dev_key = $this->DEV_KEY;
+        $database = $this->DATABASE;
 
+        $authentication = base64_encode("$dev_email:$dev_key");
+        $myvars = http_build_query(array('data' => json_encode($data)));
+        
         $curl = curl_init();
         curl_setopt_array($curl, array(
+            
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "UTF-8",
+            CURLOPT_POST => 1, 
             CURLOPT_POSTFIELDS => $myvars,
             CURLOPT_TIMEOUT => 30000,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json',
-            ),
+            CURLOPT_HEADER => false,
+            CURLOPT_HTTPHEADER     => array(
+                "Authorization: Basic $authentication",
+                "Database: $database",
+                "Content-Type: application/x-www-form-urlencoded"
+            )
         ));
         $response = curl_exec($curl);
         $err = curl_error($curl);
@@ -43,7 +44,7 @@ class SDK
             return $result = array("cURL Error #:" . $err);
         } else {
             return $result = (json_decode($response, true));
-            //return $response;
+            //echo $response;
         }
     }
     

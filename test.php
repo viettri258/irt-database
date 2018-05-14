@@ -29,7 +29,11 @@ print_r($insert);
 echo '</pre>';
 
 // --------------------------------------------- getDocument
-$documentID = $insert['data']['id'];
+if($insert['data']){
+    $documentID = $insert['data']['id'];
+} else {
+    $documentID = '';
+}
 $fieldArray = array(
     'name' => 2,
     'model' => 2,
