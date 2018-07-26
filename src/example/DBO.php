@@ -9,10 +9,12 @@ class DBO extends SDK
 {
 
     public function demoDB(){
-        $this->DATABASE = 'pStore';
-        $this->DEV_EMAIL = 'demo-user@owo.vn';
-        $this->DEV_KEY = 'FKDfU^$Sq@_vf6XJ%zTU*dJQ@dX5?B$gy9MhF9Qb';
-        $this->DEV_URL = 'http://slave.owo.vn';
+
+        $this->DATABASE = 'test';
+        $this->DEV_EMAIL = 'viettri258@gmail.com';
+        $this->DEV_KEY = '935f8a107967f7461c17022';
+        $this->DEV_URL = 'http://slave140.owo.vn';        
+
         return $this;
     }
 

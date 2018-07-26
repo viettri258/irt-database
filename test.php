@@ -7,7 +7,7 @@ require_once 'src/example/DBO.php';
 use irt\database\example\DBO;
 
 $dbo = new DBO;
-$collection = 'products';
+$collection = 'test_irtdb';
 
 // --------------------------------------------- getCollection
 $getCollection = $dbo->demoDB()->getCollection();

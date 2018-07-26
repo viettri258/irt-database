@@ -34,7 +34,8 @@ class SDK
                 "Authorization: Basic $authentication",
                 "Database: $database",
                 "Content-Type: application/x-www-form-urlencoded"
-            )
+            ),
+            CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 6.1; rv:8.0) Gecko/20100101 Firefox/8.0'
         ));
         $response = curl_exec($curl);
         $err = curl_error($curl);
