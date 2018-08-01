@@ -159,7 +159,7 @@ class MONGODRIVE
             );
         } else {
             $resultArray = array(
-                'database' => $auth['database'],
+                'database' => $this->DATABASE,
                 'command' => 'get_multi_document',
                 'ReturnCode' => 200, //Thành công
                 'ReturnText' => 'Success',
