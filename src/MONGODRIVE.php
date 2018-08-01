@@ -158,7 +158,14 @@ class MONGODRIVE
                 )
             );
         } else {
-            return array();
+            $resultArray = array(
+                'database' => $auth['database'],
+                'command' => 'get_multi_document',
+                'ReturnCode' => 200, //Thành công
+                'ReturnText' => 'Success',
+                'data' => array()
+            );
+            return $resultArray;
         }
 
         $documents = $db->$collection->find($findArray, $fieldArray);
