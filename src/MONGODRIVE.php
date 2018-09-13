@@ -3,6 +3,7 @@
 namespace irt\database;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use MongoClient;
 use MongoId;
 
@@ -207,6 +208,11 @@ class MONGODRIVE
         $dataArray['_id'] = new MongoId();
         $dataArray['created_at'] = Carbon::now('Asia/Ho_Chi_Minh')->toIso8601String();
         $dataArray['updated_at'] = Carbon::now('Asia/Ho_Chi_Minh')->toIso8601String();
+        $me = Auth::user();
+        if(isset($me->email)){ //Trường hợp dữ liệu từ bên ngoài đưa vào, muốn lưu xuống thì không cần biết ai tạo
+            $dataArray['created_by'] = (string) $me->email;
+            $dataArray['updated_by'] = (string) $me->email;
+        }
         $db = $this->connectDB();
         $insert = $db->$collection->insert($dataArray);
         if ($insert['ok']) {
@@ -242,6 +248,10 @@ class MONGODRIVE
         }
         if ($setArray) {
             $setArray['updated_at'] = Carbon::now('Asia/Ho_Chi_Minh')->toIso8601String();
+            $me = Auth::user();
+            if(isset($me->email)){ //Trường hợp dữ liệu từ bên ngoài đưa vào, muốn lưu xuống thì không cần biết ai tạo
+                $setArray['updated_by'] = (string) $me->email;
+            }
             $newData['$set'] = $setArray;
         }
         if ($unsetArray) {
@@ -284,6 +294,10 @@ class MONGODRIVE
         }
         if ($setArray) {
             $setArray['updated_at'] = Carbon::now('Asia/Ho_Chi_Minh')->toIso8601String();
+            $me = Auth::user();
+            if(isset($me->email)){ //Trường hợp dữ liệu từ bên ngoài đưa vào, muốn lưu xuống thì không cần biết ai tạo
+                $setArray['updated_by'] = (string) $me->email;
+            }
             $newData['$set'] = $setArray;
         }
         if ($unsetArray) {

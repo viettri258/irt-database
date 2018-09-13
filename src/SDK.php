@@ -2,6 +2,8 @@
 
 namespace irt\database;
 
+use Illuminate\Support\Facades\Auth;
+
 class SDK
 {
     
@@ -107,6 +109,11 @@ class SDK
     //--------------------------------------------------- insert -------------------------------------------------------------------
     public function insert($collection, $dataArray = array()) {
         $url = $this->DEV_URL . $this->MONGODB_PATH . '/insert';
+        $me = Auth::user();
+        if(isset($me->email)){ //Trường hợp dữ liệu từ bên ngoài đưa vào, muốn lưu xuống thì không cần biết ai tạo
+            $dataArray['created_by'] = (string) $me->email;
+            $dataArray['updated_by'] = (string) $me->email;
+        }
         $data = array(
             'collection' => $collection,
             'dataArray' => $dataArray
@@ -117,6 +124,10 @@ class SDK
     //-------------------------------------------------- update --------------------------------------------------------------------
     public function update($collection, $documentID, $incArray = null, $setArray = null, $unsetArray = null) {
         $url = $this->DEV_URL . $this->MONGODB_PATH . '/update';
+        $me = Auth::user();
+        if(isset($me->email)){ //Trường hợp dữ liệu từ bên ngoài đưa vào, muốn lưu xuống thì không cần biết ai tạo
+            $setArray['updated_by'] = (string) $me->email;
+        }
         $data = array(
             'collection' => $collection,
             'documentID' => $documentID,
@@ -130,6 +141,10 @@ class SDK
     //------------------------------------------------- updateMpDocument ---------------------------------------------------------------------
     public function updateMpDocument($collection, $findArray, $incArray = null, $setArray = null, $unsetArray = null) {
         $url = $this->DEV_URL . $this->MONGODB_PATH . '/updateMpDocument';
+        $me = Auth::user();
+        if(isset($me->email)){ //Trường hợp dữ liệu từ bên ngoài đưa vào, muốn lưu xuống thì không cần biết ai tạo
+            $setArray['updated_by'] = (string) $me->email;
+        }
         $data = array(
             'collection' => $collection,
             'findArray' => $findArray,
