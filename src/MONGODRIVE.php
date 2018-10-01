@@ -39,7 +39,7 @@ class MONGODRIVE
         $db = $this->connectDB();
 
         $array = $db->$collection->findOne($findArray, $fieldArray);
-        $data = null;
+        $data = array();
         if (($array) && ($fieldArray )) {
             $data = array(
                 'id' => (string) $array['_id']
@@ -74,7 +74,7 @@ class MONGODRIVE
         $db = $this->connectDB();
 
         $array = $db->$collection->findOne(array('_id' => new MongoId($documentID)), $fieldArray);
-        $data = null;
+        $data = array();
         if (($array) && ($fieldArray )) {
             $data = array(
                 'id' => (string) $array['_id']
@@ -107,7 +107,7 @@ class MONGODRIVE
     public function getMpDocument($collection, $findArray = array(), $fieldArray = array(), $sortArray = array(), $skip = 0, $limited = 10) {
 
         $db = $this->connectDB();
-        $data = null;
+        $data = array();
 
         $documents = $db->$collection->find($findArray, $fieldArray)
                 ->sort($sortArray)
@@ -172,7 +172,7 @@ class MONGODRIVE
         $documents = $db->$collection->find($findArray, $fieldArray);
         $array = iterator_to_array($documents); //Dữ liệu trả về là MongoCursor, nên phải convert lại sang Array
 
-        $data = null;
+        $data = array();
         foreach ($array as $item) {
             if (count($fieldArray)) {
                 foreach ($fieldArray as $key => $value) {
