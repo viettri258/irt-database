@@ -111,8 +111,8 @@ class SDK
         $url = $this->DEV_URL . $this->MONGODB_PATH . '/insert';
         $me = Auth::user();
         if(isset($me->email)){ //Trường hợp dữ liệu từ bên ngoài đưa vào, muốn lưu xuống thì không cần biết ai tạo
-            $dataArray['created_by'] = (string) $me->email;
-            $dataArray['updated_by'] = (string) $me->email;
+            $dataArray['created_by'] = isset($dataArray['created_by']) ? $dataArray['created_by'] : (string) $me->email;
+            $dataArray['updated_by'] = isset($dataArray['updated_by']) ? $dataArray['updated_by'] : (string) $me->email;
         }
         $data = array(
             'collection' => $collection,
