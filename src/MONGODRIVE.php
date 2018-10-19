@@ -206,12 +206,12 @@ class MONGODRIVE
     public function insert($collection, $dataArray = array()) {
 
         $dataArray['_id'] = new MongoId();
-        $dataArray['created_at'] = Carbon::now('Asia/Ho_Chi_Minh')->toIso8601String();
-        $dataArray['updated_at'] = Carbon::now('Asia/Ho_Chi_Minh')->toIso8601String();
+        $dataArray['created_at'] = isset($dataArray['created_at']) ? $dataArray['created_at'] : Carbon::now('Asia/Ho_Chi_Minh')->toIso8601String();
+        $dataArray['updated_at'] = isset($dataArray['updated_at']) ? $dataArray['updated_at'] : Carbon::now('Asia/Ho_Chi_Minh')->toIso8601String();
         $me = Auth::user();
         if(isset($me->email)){ //Trường hợp dữ liệu từ bên ngoài đưa vào, muốn lưu xuống thì không cần biết ai tạo
-            $dataArray['created_by'] = (string) $me->email;
-            $dataArray['updated_by'] = (string) $me->email;
+            $dataArray['created_by'] = isset($dataArray['created_by']) ? $dataArray['created_by'] : (string) $me->email;
+            $dataArray['updated_by'] = isset($dataArray['updated_by']) ? $dataArray['updated_by'] : (string) $me->email;
         }
         $db = $this->connectDB();
         $insert = $db->$collection->insert($dataArray);
