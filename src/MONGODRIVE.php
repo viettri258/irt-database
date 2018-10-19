@@ -247,7 +247,7 @@ class MONGODRIVE
             $newData['$inc'] = $incArray;
         }
         if ($setArray) {
-            $setArray['updated_at'] = Carbon::now('Asia/Ho_Chi_Minh')->toIso8601String();
+            $setArray['updated_at'] = isset($setArray['updated_at']) ? $setArray['updated_at'] : Carbon::now('Asia/Ho_Chi_Minh')->toIso8601String();
             $me = Auth::user();
             if(isset($me->email)){ //Trường hợp dữ liệu từ bên ngoài đưa vào, muốn lưu xuống thì không cần biết ai tạo
                 $setArray['updated_by'] = (string) $me->email;
@@ -293,7 +293,7 @@ class MONGODRIVE
             $newData['$inc'] = $incArray;
         }
         if ($setArray) {
-            $setArray['updated_at'] = Carbon::now('Asia/Ho_Chi_Minh')->toIso8601String();
+            $setArray['updated_at'] = isset($setArray['updated_at']) ? $setArray['updated_at'] :  Carbon::now('Asia/Ho_Chi_Minh')->toIso8601String();
             $me = Auth::user();
             if(isset($me->email)){ //Trường hợp dữ liệu từ bên ngoài đưa vào, muốn lưu xuống thì không cần biết ai tạo
                 $setArray['updated_by'] = (string) $me->email;

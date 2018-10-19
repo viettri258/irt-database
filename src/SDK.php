@@ -126,7 +126,7 @@ class SDK
         $url = $this->DEV_URL . $this->MONGODB_PATH . '/update';
         $me = Auth::user();
         if(isset($me->email)){ //Trường hợp dữ liệu từ bên ngoài đưa vào, muốn lưu xuống thì không cần biết ai tạo
-            $setArray['updated_by'] = (string) $me->email;
+            $setArray['updated_by'] = isset($setArray['updated_by']) ? $setArray['updated_by'] : (string) $me->email;
         }
         $data = array(
             'collection' => $collection,
@@ -143,7 +143,7 @@ class SDK
         $url = $this->DEV_URL . $this->MONGODB_PATH . '/updateMpDocument';
         $me = Auth::user();
         if(isset($me->email)){ //Trường hợp dữ liệu từ bên ngoài đưa vào, muốn lưu xuống thì không cần biết ai tạo
-            $setArray['updated_by'] = (string) $me->email;
+            $setArray['updated_by'] = isset($setArray['updated_by']) ? $setArray['updated_by'] : (string) $me->email;
         }
         $data = array(
             'collection' => $collection,
