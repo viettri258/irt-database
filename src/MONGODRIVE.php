@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use MongoClient;
 use MongoId;
 
+//http://php.net/manual/en/class.mongocollection.php
+
 class MONGODRIVE
 {
         
@@ -357,6 +359,92 @@ class MONGODRIVE
         
         return $resultArray;
     }
+
+    //-------------------------------------------------- batchInsert --------------------------------------------------------------------
+    public function batchInsert($collection, $array){
+        $db = $this->connectDB();
+        $db->$collection->batchInsert($array);
+        $resultArray = array(
+            'database' => $this->DATABASE,
+            'command' => 'batchInsert',
+            'ReturnCode' => 200, //Thành công
+            'ReturnText' => 'Success',
+            'data' => $array
+        );
+        
+        return $resultArray;
+
+    }
+
+    //-------------------------------------------------- distinct --------------------------------------------------------------------
+    public function distinct($collection, $key, $query = array())
+    {
+        $db = $this->connectDB();
+        $result = $db->$collection->distinct($key, $query);
+
+        $resultArray = array(
+            'database' => $this->DATABASE,
+            'command' => 'distinct',
+            'ReturnCode' => 200, //Thành công
+            'ReturnText' => 'Success',
+            'data' => $result
+        );
+        
+        return $resultArray;
+    }
+
+    //-------------------------------------------------- group --------------------------------------------------------------------
+    public function group($collection, $keys, $initial = array(), $reduce, $options = array())
+    {
+        $db = $this->connectDB();
+        $result = $db->$collection->group($key, $initial, $reduce, $options);
+
+        $resultArray = array(
+            'database' => $this->DATABASE,
+            'command' => 'group',
+            'ReturnCode' => 200, //Thành công
+            'ReturnText' => 'Success',
+            'data' => $result
+        );
+        
+        return $resultArray;
+    }
+
+    //-------------------------------------------------- count --------------------------------------------------------------------
+    public function count($collection, $query = array())
+    {
+        $db = $this->connectDB();
+        $result = $db->$collection->count($query);
+
+        $resultArray = array(
+            'database' => $this->DATABASE,
+            'command' => 'distinct',
+            'ReturnCode' => 200, //Thành công
+            'ReturnText' => 'Success',
+            'data' => $result
+        );
+        
+        return $resultArray;
+    }
+
+
+    //-------------------------------------------------- aggregate --------------------------------------------------------------------
+    public function aggregate($collection, $pipeline = array())
+    {
+        $db = $this->connectDB();
+        $result = $db->$collection->aggregate($pipeline);
+
+        $resultArray = array(
+            'database' => $this->DATABASE,
+            'command' => 'distinct',
+            'ReturnCode' => 200, //Thành công
+            'ReturnText' => 'Success',
+            'data' => $result
+        );
+        
+        return $resultArray;
+    }
+
 
 }
 
