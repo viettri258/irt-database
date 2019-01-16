@@ -445,6 +445,23 @@ class MONGODRIVE
         return $resultArray;
     }
 
+    //-------------------------------------------------- drop --------------------------------------------------------------------
+    public function drop($collection)
+    {
+        $db = $this->connectDB();
+        $result = $db->$collection->drop();
+
+        $resultArray = array(
+            'database' => $this->DATABASE,
+            'command' => 'drop collection',
+            'ReturnCode' => 200, //Thành công
+            'ReturnText' => 'Success',
+            'data' => $result
+        );
+        
+        return $resultArray;
+    }
+
 
 }
 
