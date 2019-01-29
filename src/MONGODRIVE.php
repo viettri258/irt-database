@@ -462,6 +462,14 @@ class MONGODRIVE
         return $resultArray;
     }
 
+    //-------------------------------------------------- command --------------------------------------------------------------------
+    public function command($params)
+    {
+        $db = $this->connectDB();
+        $result = $db->command($params);
+        return $result;
+    }
+
 
 }
 
