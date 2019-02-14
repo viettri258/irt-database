@@ -241,10 +241,16 @@ class MONGODRIVE
     }
 
     //-------------------------------------------------- update --------------------------------------------------------------------
-    public function update($collection, $documentID, $incArray = null, $setArray = null, $unsetArray = null) {
+    public function update($collection, $documentID, $incArray = null, $setArray = null, $unsetArray = null, $arrOperator = null) {
 
         $db = $this->connectDB();
-        $newData = array();
+        if($arrOperator)
+        {
+            $newData = $arrOperator;
+        } else {
+            $newData = array();
+        }
+        
         if ($incArray) {
             $newData['$inc'] = $incArray;
         }
@@ -287,10 +293,15 @@ class MONGODRIVE
     }
 
     //------------------------------------------------- updateMpDocument ---------------------------------------------------------------------
-    public function updateMpDocument($collection, $findArray, $incArray = null, $setArray = null, $unsetArray = null) {
+    public function updateMpDocument($collection, $findArray, $incArray = null, $setArray = null, $unsetArray = null, $arrOperator = null) {
 
         $db = $this->connectDB();
-        $newData = array();
+        if($arrOperator)
+        {
+            $newData = $arrOperator;
+        } else {
+            $newData = array();
+        }
         if ($incArray) {
             $newData['$inc'] = $incArray;
         }
