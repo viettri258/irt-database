@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use MongoClient;
 use MongoId;
+use MongoDate;
 
 //http://php.net/manual/en/class.mongocollection.php
 
@@ -208,6 +209,8 @@ class MONGODRIVE
     public function insert($collection, $dataArray = array()) {
 
         $dataArray['_id'] = new MongoId();
+        $dataArray['createdAt'] = new MongoDate();
+        $dataArray['updatedAt'] = new MongoDate();
         $dataArray['created_at'] = isset($dataArray['created_at']) ? $dataArray['created_at'] : Carbon::now('Asia/Ho_Chi_Minh')->toIso8601String();
         $dataArray['updated_at'] = isset($dataArray['updated_at']) ? $dataArray['updated_at'] : Carbon::now('Asia/Ho_Chi_Minh')->toIso8601String();
         $me = Auth::user();
@@ -255,6 +258,7 @@ class MONGODRIVE
             $newData['$inc'] = $incArray;
         }
         if ($setArray) {
+            $setArray['updatedAt'] = new MongoDate();
             $setArray['updated_at'] = isset($setArray['updated_at']) ? $setArray['updated_at'] : Carbon::now('Asia/Ho_Chi_Minh')->toIso8601String();
             $me = Auth::user();
             if(isset($me->email)){ //Trường hợp dữ liệu từ bên ngoài đưa vào, muốn lưu xuống thì không cần biết ai tạo
@@ -306,6 +310,7 @@ class MONGODRIVE
             $newData['$inc'] = $incArray;
         }
         if ($setArray) {
+            $setArray['updatedAt'] = new MongoDate();
             $setArray['updated_at'] = isset($setArray['updated_at']) ? $setArray['updated_at'] :  Carbon::now('Asia/Ho_Chi_Minh')->toIso8601String();
             $me = Auth::user();
             if(isset($me->email)){ //Trường hợp dữ liệu từ bên ngoài đưa vào, muốn lưu xuống thì không cần biết ai tạo
