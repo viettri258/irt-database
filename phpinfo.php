@@ -1,5 +1,6 @@
 <?php
-
+phpinfo();
+/*
 $m = new MongoClient();
 $collection = $m->test->phpmanual;//$m->selectCollection('test', 'phpmanual');
 

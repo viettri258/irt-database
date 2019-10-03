@@ -111,6 +111,7 @@ class MONGODRIVE
 
         $db = $this->connectDB();
         $data = array();
+        $dataArray = array();
 
         $documents = $db->$collection->find($findArray, $fieldArray)
                 ->sort($sortArray)
@@ -135,13 +136,15 @@ class MONGODRIVE
             $id = (string) $item['_id'];
             $item_new['id'] = $id;
             $data[$id] = $item_new;
+            $dataArray[] = $item_new;
         }
         $resultArray = array(
             'database' => $this->DATABASE,
             'command' => 'get_multi_document',
             'ReturnCode' => 200, //Thành công
             'ReturnText' => 'Success',
-            'data' => $data
+            'data' => $data,
+            'dataArray' => $dataArray
         );
 
         return $resultArray;
@@ -176,6 +179,8 @@ class MONGODRIVE
         $array = iterator_to_array($documents); //Dữ liệu trả về là MongoCursor, nên phải convert lại sang Array
 
         $data = array();
+        $dataArray = array();
+        
         foreach ($array as $item) {
             if (count($fieldArray)) {
                 foreach ($fieldArray as $key => $value) {
@@ -193,13 +198,15 @@ class MONGODRIVE
             $id = (string) $item['_id'];
             $item_new['id'] = $id;
             $data[$id] = $item_new;
+            $dataArray[] = $item_new;
         }
         $resultArray = array(
             'database' => $this->DATABASE,
             'command' => 'get_multi_document',
             'ReturnCode' => 200, //Thành công
             'ReturnText' => 'Success',
-            'data' => $data
+            'data' => $data,
+            'dataArray' => $dataArray
         );
 
         return $resultArray;
